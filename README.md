@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -18,17 +16,43 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+# Description
 
-To learn more about Next.js, take a look at the following resources:
+Web app with the function of taking in issues or bugs within a team and tracking each as it’s own item. Items can be marked with various descriptors including completion, severity, issue type, author, claimant. The app will be adaptable in aesthetic so as far as to change it to a helpdesk or administrative console.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Framework
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Next.JS
+- MongoDB
+- MUI
+- Authorisation
+  - Auth0?
 
-## Deploy on Vercel
+# Software Requirement Specification
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Authorisation
+  - email / password
+  - forgot password
+  - Registration
+  - sign in
+  - Demo user?
+- User roles
+  - Admin
+  - Project manager
+  - developer
+  - submitter?
+- Dashboard
+  - Stats
+    - types
+    - progress
+- Create issue
+- Read issue
+- Update issue
+- Delete issue
+- Rate an issue’s severity
+- Rate an issue’s type
+- Track an issue’s progress
+- Track an issue’s history
+- Issue’s can have attachments
+- Tickets can be filtered via search bar
+- Use issue tracker for it’s own project
