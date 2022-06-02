@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import { IssueContext } from "../contexts/IssueContext";
 
-export default function issue() {
+//mui
+import { StyledTableCell, StyledTableRow } from "../styles/muiIssue";
+
+export default function Issue() {
+  const { issues } = useContext(IssueContext);
+
   return (
-    <div>
-      <li>issue</li>
-      <li>issue</li>
-      <li>issue</li>
-      <li>issue</li>
-    </div>
+    <>
+      {issues.map((issue) => (
+        <StyledTableRow key={issue.id}>
+          <StyledTableCell align="centre">{issue.title}</StyledTableCell>
+          <StyledTableCell align="centre">{issue.details}</StyledTableCell>
+          <StyledTableCell align="centre">{issue.status}</StyledTableCell>
+        </StyledTableRow>
+      ))}
+    </>
   );
 }

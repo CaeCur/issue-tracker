@@ -1,12 +1,31 @@
 import React from "react";
 import Issue from "../components/Issue";
 
+//mui
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { StyledTableCell } from "../styles/muiIssue";
+
 export default function IssueList() {
   return (
-    <div>
-      <ul>
-        <Issue />
-      </ul>
-    </div>
+    <TableContainer sx={{ maxWidth: 1000 }} component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Title</StyledTableCell>
+            <StyledTableCell align="centre">Details</StyledTableCell>
+            <StyledTableCell align="centre">Status</StyledTableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          <Issue />
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
