@@ -1,5 +1,5 @@
 import React from "react";
-import Issue from "../components/Issue";
+import Issue from "../../components/Issue";
 
 //mui
 import Table from "@mui/material/Table";
@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { StyledTableCell } from "../styles/muiIssue";
+import { StyledTableCell } from "../../styles/muiIssue";
 
 export default function IssueList() {
   return (
@@ -16,9 +16,9 @@ export default function IssueList() {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Title</StyledTableCell>
-            <StyledTableCell align="centre">Details</StyledTableCell>
-            <StyledTableCell align="centre">Status</StyledTableCell>
+            <StyledTableCell align="left">Title</StyledTableCell>
+            <StyledTableCell align="left">Details</StyledTableCell>
+            <StyledTableCell align="left">Status</StyledTableCell>
           </TableRow>
         </TableHead>
 
