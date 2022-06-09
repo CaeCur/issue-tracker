@@ -15,7 +15,7 @@ export default function Navbar() {
         <a>Home</a>
       </Link>
 
-      <Link href="/IssueList">
+      <Link href="/issues">
         <a>Issues</a>
       </Link>
     </nav>

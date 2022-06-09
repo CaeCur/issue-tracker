@@ -1,11 +1,14 @@
 import Layout from "../components/Layout";
+import IssueContextProvider from "../contexts/IssueContext";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <IssueContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </IssueContextProvider>
   );
 }
 
