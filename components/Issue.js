@@ -5,16 +5,12 @@ import { IssueContext } from "../contexts/IssueContext";
 import { StyledTableCell, StyledTableRow } from "../styles/muiIssue";
 
 export default function Issue() {
-  const { issues, updateContext, loading } = useContext(IssueContext);
-
-  useEffect(() => {
-    updateContext();
-  }, [updateContext]);
+  const { issues, loading } = useContext(IssueContext);
 
   return loading ? (
     <StyledTableRow>
       <StyledTableCell align="left"></StyledTableCell>
-      <StyledTableCell align="left">LOADING...</StyledTableCell>
+      <StyledTableCell align="center">LOADING...</StyledTableCell>
       <StyledTableCell align="left"></StyledTableCell>
     </StyledTableRow>
   ) : issues.length ? (
@@ -30,7 +26,7 @@ export default function Issue() {
   ) : (
     <StyledTableRow>
       <StyledTableCell align="left"></StyledTableCell>
-      <StyledTableCell align="left">No Issues</StyledTableCell>
+      <StyledTableCell align="center">No Issues</StyledTableCell>
       <StyledTableCell align="left"></StyledTableCell>
     </StyledTableRow>
   );

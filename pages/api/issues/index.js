@@ -6,6 +6,6 @@ export default async function getIssues(req, res) {
 
   if (req.method === "GET") {
     const issues = await db.collection("issues").find({}).toArray();
-    res.status(200).json({ data: issues });
+    res.status(200).json({ issues });
   }
 }
