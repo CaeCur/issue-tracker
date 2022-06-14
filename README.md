@@ -1,6 +1,10 @@
+# Issue Tracker (Next.js)
+
+## Issue tracking web app that can be used to report and track tasks and bugs in your projects.4
+
 # Description
 
-Web app with the function of taking in issues or bugs within a team and tracking each as it’s own item. Items can be marked with various descriptors including completion, severity, issue type, author, claimant. The app will be adaptable in aesthetic so as far as to change it to a helpdesk or administrative console.
+Web app with the function of taking in issues or bugs within a team and tracking each as it’s own item. Items can be marked with various descriptors including completion, severity, issue type, author, claimant. The app will be adaptable in aesthetic so as far as to change it to a helpdesk or administrative console with ease.
 
 # Framework
 
