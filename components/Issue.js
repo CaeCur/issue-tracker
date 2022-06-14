@@ -7,6 +7,8 @@ import { StyledTableCell, StyledTableRow } from "../styles/muiIssue";
 export default function Issue() {
   const { issues, loading } = useContext(IssueContext);
 
+  console.log(issues);
+
   return loading ? (
     <StyledTableRow>
       <StyledTableCell align="left"></StyledTableCell>
