@@ -18,6 +18,10 @@ export default function Navbar() {
       <Link href="/issues">
         <a>Issues</a>
       </Link>
+
+      <Link href="/new-issue">
+        <a>Create issue</a>
+      </Link>
     </nav>
   );
 }
