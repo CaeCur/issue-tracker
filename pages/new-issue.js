@@ -1,29 +1,90 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 //mui
 import Container from "@mui/material/Container";
-import { Autocomplete, MenuItem, TextField, Typography } from "@mui/material";
+import { Autocomplete, TextField, Typography, Button } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log("form has been submitted");
-};
+const users = ["caelanc", "florab"];
+
+const priorityOptions = ["elective", "important", "urgent"];
 
 export default function NewIssueForm() {
-  //form state
+  /*** form state ***/
+  //track inputs
   const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState("");
   const [details, setDetails] = useState("");
-  const [detailsError, setDetailsError] = useState("");
-  const [onVersion, setOnVersion] = useState("1.0.0");
-  const [onVersionError, setOnVersionError] = useState("");
-  const [users, setUsers] = useState(["caelanc", "florab"]);
-  const [priority, setPriority] = useState(["elective", "important", "urgent"]);
+  const [onVersion, setOnVersion] = useState(""); // we can make the software version a global variable at some point
+  const [assignTo, setAssignTo] = useState(null);
+  const [priority, setPriority] = useState(null);
   const [dueDate, setDueDate] = useState(null);
+  //track errors
+  const [titleError, setTitleError] = useState(false);
+  const [detailsError, setDetailsError] = useState(false);
+  const [onVersionError, setOnVersionError] = useState(false);
+  const [assignToError, setAssignToError] = useState(false);
+  const [priorityError, setPriorityError] = useState(false);
+  const [dueDateError, setDueDateError] = useState(false);
 
+  /*** form methods ***/
+
+  //soft validation
+  //TODO: extract to a hook
+  const checkValidateErrors = () => {
+    setTitleError(false);
+    setDetailsError(false);
+    setOnVersionError(false);
+    setAssignToError(false);
+    setPriorityError(false);
+    setDueDateError(false);
+
+    //check for errors
+    if (title.length === 0) {
+      setTitleError(true);
+    }
+    if (details.length === 0) {
+      setDetailsError(true);
+    }
+    if (onVersion.length === 0) {
+      setOnVersionError(true);
+    }
+    if (assignTo === null) {
+      setAssignToError(true);
+    }
+    if (priority === null) {
+      setPriorityError(true);
+    }
+    if (dueDate === null) {
+      setDueDateError(true);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    //check for errors
+    checkValidateErrors();
+
+    if (title && details && onVersion && assignTo && priority && dueDate) {
+      //submit form
+      axios
+        .post("/api/issues", { title, details, onVersion, assignTo, priority, dueDate })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      //show error
+      console.log("error");
+    }
+  };
+
+  /*** form render ***/
   return (
     <Container>
       <Typography variant="h6" component={"h2"} color="textSecondary" gutterBottom>
@@ -63,7 +124,7 @@ export default function NewIssueForm() {
         <TextField
           onChange={(e) => setOnVersion(e.target.value)}
           label="Version of Software"
-          placeholder={onVersion}
+          placeholder="1.0.0"
           margin="dense"
           variant="outlined"
           color="secondary"
@@ -75,8 +136,9 @@ export default function NewIssueForm() {
 
         {/* assign to */}
         <Autocomplete
-          disablePortal
           options={users}
+          value={assignTo}
+          onChange={(e, newValue) => setAssignTo(newValue)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -86,14 +148,17 @@ export default function NewIssueForm() {
               color="secondary"
               fullWidth
               required
+              error={assignToError}
+              helperText={assignToError ? "Issue needs to be assigned to someone" : ""}
             />
           )}
         />
 
         {/* priority */}
         <Autocomplete
-          disablePortal
-          options={priority}
+          options={priorityOptions}
+          value={priority}
+          onChange={(e, newValue) => setPriority(newValue)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -103,6 +168,8 @@ export default function NewIssueForm() {
               color="secondary"
               fullWidth
               required
+              error={priorityError}
+              helperText={priorityError ? "Issue priority is required" : ""}
             />
           )}
         />
@@ -124,24 +191,31 @@ export default function NewIssueForm() {
                 color="secondary"
                 fullWidth
                 required
+                error={dueDateError}
+                helperText={dueDateError ? "Due date is required" : ""}
               />
             )}
           ></DatePicker>
         </LocalizationProvider>
+
+        {/* submit button */}
+        <Button type="submit" variant="contained" color="secondary">
+          Create
+        </Button>
       </form>
     </Container>
   );
 }
 
 /*
-title:Second Test Issue String -text field
-details:longer just to test what happens if a long string is recieved. String - text field
+title:Second Test Issue String -text field *
+details:longer just to test what happens if a long string is recieved. String - text field *
 status:1 Int32 - dropdown
-onVersion:1.0.0 String - text field
-priority:0 Int32 - dropdown
+onVersion:1.0.0 String - text field *
+priority:0 Int32 - dropdown *
 createdBy:caelan String - drop down
-assignedTo:Peach String - drop down
+assignedTo:Peach String - drop down *
 createdOn:2022-06-03T22:00:00.000+00:00 Date - date picker
 updatedOn:2022-06-03T22:00:00.000+00:00 Date - date picker
-dueDate:2022-07-01T22:00:00.000+00:00 Date - date picker
+dueDate:2022-07-01T22:00:00.000+00:00 Date - date picker *
 */

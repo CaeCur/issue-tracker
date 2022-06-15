@@ -8,4 +8,11 @@ export default async function getIssues(req, res) {
     const issues = await db.collection("issues").find({}).toArray();
     res.status(200).json({ issues });
   }
+
+  if (req.method === "POST") {
+    const issue = req.body;
+    const result = await db.collection("issues").insertOne(issue);
+    console.log(`A document was inserted with the _id: ${result.insertedId}`);
+    res.status(201).json({ issue });
+  }
 }
