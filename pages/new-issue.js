@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import checkErrorStatus from "../hooks/useToggleErrorStates";
 
 //mui
 import Container from "@mui/material/Container";
@@ -31,53 +32,30 @@ export default function NewIssueForm() {
 
   /*** form methods ***/
 
-  //soft validation
-  //TODO: extract to a hook
-  const checkValidateErrors = () => {
-    setTitleError(false);
-    setDetailsError(false);
-    setOnVersionError(false);
-    setAssignToError(false);
-    setPriorityError(false);
-    setDueDateError(false);
-
-    //check for errors
-    if (title.length === 0) {
-      setTitleError(true);
-    }
-    if (details.length === 0) {
-      setDetailsError(true);
-    }
-    if (onVersion.length === 0) {
-      setOnVersionError(true);
-    }
-    if (assignTo === null) {
-      setAssignToError(true);
-    }
-    if (priority === null) {
-      setPriorityError(true);
-    }
-    if (dueDate === null) {
-      setDueDateError(true);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     //check for errors
-    checkValidateErrors();
+    checkErrorStatus([
+      { stateCheck: title, errorState: titleError, errorStateFn: setTitleError },
+      { stateCheck: details, errorState: detailsError, errorStateFn: setDetailsError },
+      { stateCheck: onVersion, errorState: onVersionError, errorStateFn: setOnVersionError },
+      { stateCheck: assignTo, errorState: assignToError, errorStateFn: setAssignToError },
+      { stateCheck: priority, errorState: priorityError, errorStateFn: setPriorityError },
+      { stateCheck: dueDate, errorState: dueDateError, errorStateFn: setDueDateError },
+    ]);
 
     if (title && details && onVersion && assignTo && priority && dueDate) {
       //submit form
-      axios
-        .post("/api/issues", { title, details, onVersion, assignTo, priority, dueDate })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // axios
+      //   .post("/api/issues", { title, details, onVersion, assignTo, priority, dueDate })
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+      console.log({ title, details, onVersion, assignTo, priority, dueDate });
     } else {
       //show error
       console.log("error");
