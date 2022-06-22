@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import { IssueContext } from "../contexts/IssueContext";
 
@@ -6,8 +7,6 @@ import { StyledTableCell, StyledTableRow } from "../styles/muiIssue";
 
 export default function Issue() {
   const { issues, loading } = useContext(IssueContext);
-
-  console.log(issues);
 
   return loading ? (
     <StyledTableRow>
@@ -18,11 +17,13 @@ export default function Issue() {
   ) : issues.length ? (
     <>
       {issues.map((issue) => (
-        <StyledTableRow key={issue._id}>
-          <StyledTableCell align="left">{issue.title}</StyledTableCell>
-          <StyledTableCell align="left">{issue.details}</StyledTableCell>
-          <StyledTableCell align="left">{issue.status}</StyledTableCell>
-        </StyledTableRow>
+        <Link key={issue._id} href={`/issues/${issue._id}`}>
+          <StyledTableRow>
+            <StyledTableCell align="left">{issue.title}</StyledTableCell>
+            <StyledTableCell align="left">{issue.details}</StyledTableCell>
+            <StyledTableCell align="left">{issue.status}</StyledTableCell>
+          </StyledTableRow>
+        </Link>
       ))}
     </>
   ) : (
